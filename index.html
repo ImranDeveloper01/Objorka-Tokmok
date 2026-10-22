@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#11110f">
+  <meta name="description" content="Обжорка 24/7 — меню и заказ в Токмоке. Закажите через WhatsApp.">
+  <title>Обжорка 24/7 — вкусно в любое время</title>
+  <link rel="preconnect" href="https://images.unsplash.com">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="wrap nav">
+    <a class="brand" href="#"><b>ОБЖОРКА</b> 24/7</a>
+    <nav class="links">
+      <a href="#menu">Меню</a><a href="#about">О нас</a><a href="#contacts">Контакты</a>
+    </nav>
+    <div class="navright">
+      <span class="hours"><i></i>Принимаем заказы 24/7</span>
+      <button class="btn" onclick="openCart()">Корзина <span id="navCount">0</span></button>
+    </div>
+  </div>
+</header>
+<main>
+  <div class="wrap hero">
+    <div class="hero-box">
+      <div class="hero-content">
+        <div class="eyebrow">Токмок · вкусно в любое время</div>
+        <h1>Голод не ждёт.<br>Обжорка рядом.</h1>
+        <p>Бургеры, пицца, степ-роллы и любимые закуски. Выбирайте в меню и отправляйте заказ прямо в WhatsApp.</p>
+        <div class="hero-actions">
+          <a class="btn" href="#menu">Смотреть меню</a>
+          <button class="btn btn-dark" onclick="openCart()">Оформить заказ</button>
+        </div>
+        <div class="chips">
+          <span class="chip">✦ Сертифицировано Халяль</span>
+          <span class="chip">◷ Работаем 24/7</span>
+          <span class="chip">⌁ Доставка и самовывоз</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <section class="wrap" id="menu">
+    <div class="section-head">
+      <div><h2>Меню</h2><p>Добавьте любимые блюда в корзину — оплата при получении.</p></div>
+    </div>
+    <div class="tools">
+      <label class="search"><span>⌕</span><input id="search" type="search" placeholder="Найти блюдо..." autocomplete="off"></label>
+      <div class="catbar" id="catbar"></div>
+    </div>
+    <div id="menuRoot"></div>
+  </section>
+  <section class="wrap info" id="about">
+    <div class="info-card">
+      <div class="eyebrow">Обжорка 24/7</div>
+      <h2>Вкусно, сытно, по-домашнему</h2>
+      <p>Закажите любимые блюда в Токмоке. Выберите доставку или самовывоз, укажите удобные детали и отправьте заказ в WhatsApp. Онлайн-оплаты на сайте нет.</p>
+      <p>Продукция имеет сертификат Халяль.</p>
+    </div>
+    <div class="info-card" id="contacts">
+      <h2>Контакты и заказ</h2>
+      <p>Напишите нам в WhatsApp, чтобы оформить заказ или уточнить детали.</p>
+      <a class="phone" href="https://wa.me/996501777232" target="_blank" rel="noopener">0501 777 232</a>
+      <p>Токмок · Доставка и самовывоз<br>Стоимость доставки и минимальный заказ уточняются при подтверждении.</p>
+    </div>
+  </section>
+</main>
+<footer class="footer">
+  <div class="wrap"><span>© Обжорка 24/7 · Токмок</span><span>Заказ отправляется через WhatsApp. Онлайн-оплаты нет.</span></div>
+</footer>
+<a class="float-wa" href="https://wa.me/996501777232" target="_blank" rel="noopener">☏ WhatsApp</a>
+<button class="cart-fab" id="cartFab" onclick="openCart()">Корзина · <span id="fabCount">0</span> · <span id="fabTotal">0</span> с</button>
+<div class="shade" id="shade" onclick="closeCart()"></div>
+<aside class="drawer" id="drawer" aria-label="Корзина">
+  <div class="drawer-head"><h2>Ваш заказ</h2><button class="close" onclick="closeCart()" aria-label="Закрыть">×</button></div>
+  <div class="drawer-content">
+    <div id="cartItems"></div>
+    <div class="cart-total"><span>Итого</span><span id="total">0 с</span></div>
+    <div class="hint">Стоимость доставки, если она есть, будет подтверждена заведением в WhatsApp.</div>
+  </div>
+  <div class="checkout">
+    <h3>Оформление</h3>
+    <div class="delivery-toggle">
+      <button id="deliveryBtn" class="selected" onclick="setType('delivery')">🛵 Доставка</button>
+      <button id="pickupBtn" onclick="setType('pickup')">🏃 Самовывоз</button>
+    </div>
+    <form id="orderForm">
+      <div class="formgrid">
+        <div class="field"><label for="customerName">Имя *</label><input id="customerName" required placeholder="Ваше имя"></div>
+        <div class="field"><label for="customerPhone">Телефон *</label><input id="customerPhone" type="tel" required placeholder="+996 ..."></div>
+        <div class="field full" id="addressField"><label for="address">Адрес доставки *</label><input id="address" placeholder="Улица, дом, квартира"></div>
+        <div class="field"><label for="entrance">Подъезд</label><input id="entrance" placeholder="№ подъезда"></div>
+        <div class="field"><label for="floor">Этаж / квартира</label><input id="floor" placeholder="Этаж, квартира"></div>
+        <div class="field full"><label for="comment">Комментарий к заказу</label><textarea id="comment" placeholder="Пожелания, ориентир или комментарий"></textarea></div>
+      </div>
+      <button class="wa-submit" type="submit">Отправить заказ в WhatsApp</button>
+      <div class="hint">WhatsApp откроет подготовленное сообщение. Чтобы заказ поступил заведению, нажмите «Отправить» в чате.</div>
+    </form>
+  </div>
+</aside>
+<div class="toast" id="toast"></div>
+<script src="app.js"></script>
+</body>
+</html>
